@@ -1,31 +1,87 @@
 # 使用KUDU
 
-## KUDU的API操作 <br/>
+## KUDU的常用API操作 <br/>
 
 ### 创建表
 
+	/**
+	    * 创建表
+	    */
+	  def createTable(client: KuduClient, tableName: String): Unit = {
+	    import scala.collection.JavaConverters._
+	    val columns = List(
+	      new ColumnSchema.ColumnSchemaBuilder("id", Type.STRING).key(true).build(),
+	      new ColumnSchema.ColumnSchemaBuilder("name", Type.INT32).build()
+	    ).asJava
+	    val schema = new Schema(columns)
+	    val options: CreateTableOptions = new CreateTableOptions()
+	    options.setNumReplicas(1)
+	    val parcols: util.LinkedList[String] = new util.LinkedList[String]()
+	    parcols.add("word")
+	    options.addHashPartitions(parcols,3)
+	    client.createTable(tableName,schema,options)
+	    }
+	    
+### 插入数据
 
 
-#### 连接指定的impala主机
- 	impala-shell -i node01
+	  def insertRows(client: KuduClient, tableName: String) = {
+	    val table: KuduTable = client.openTable(tableName)  // 根据表名获取kudu的表
+	    val session: KuduSession = client.newSession() // JPA Hibernate
+	 
+	    for(i<-1 to 10) {
+	      val insert: Insert = table.newInsert()
+	      val row: PartialRow = insert.getRow
+	      row.addString("id", 100+i)
+	      row.addInt("name",s"test-$i")
+	 
+	      session.apply(insert)
+	    }
+	 }
+	 
+### 修改表结构
 
-#### 使用-q查询表中数据，并将数据写入文件中
-	impala-shell -q 'select * from student' -o output.txt
-	
-#### 显示查询执行计划
-	 impala-shell -p
+	 def renameTable(client: KuduClient, tableName: String, newTableName: String) = {
+	 
+	    val options: AlterTableOptions = new AlterTableOptions()
+	    options.renameTable(newTableName)
+	    client.alterTable(tableName, options)
+	  }
+	 
+### 查询数据
 
-#### 去格式化输出
-	impala-shell -q 'select * from student' -B --output_delimiter="\t" -o output.txt
-	
-## Impala的内部shell
+	def query(client: KuduClient, tableName: String) = {
+	    val table: KuduTable = client.openTable(tableName)
+	 
+	    val scanner: KuduScanner = client.newScannerBuilder(table).build()
+	 
+	    while(scanner.hasMoreRows) {
+	      val iterator: RowResultIterator = scanner.nextRows()
+	 
+	      while(iterator.hasNext) {
+	        val result: RowResult = iterator.next()
+	        println(result.getString("id") + " => " + result.getInt("name"))
+	      }
+	    }	 
+	  }
 
-*  显示帮助信息 : `help	`
-*  显示执行计划 : `explain <sql>	`
-*  查询最近一次查询的底层信息 : `profile (查询完成后执行）`
-*  不退出impala-shell执行shell命令 : `shell <shell>	`
-*  显示版本信息 : `version	（同于impala-shell -v）`
-*  连接impalad主机，默认端口21000 : `connect	（同于impala-shell -i）`
-*  增量刷新元数据库 : `refresh <tablename>	`
-*  全量刷新元数据库（慎用）: `invalidate metadata（同于 impala-shell -r）`
-*  历史命令 : `history	`
+### 修改数据
+
+	def upsertRow(client: KuduClient, tableName: String) = {
+	    val table: KuduTable = client.openTable(tableName)
+	    val session: KuduSession = client.newSession()
+	 
+	    val update: Update = table.newUpdate()
+	    val row: PartialRow = update.getRow
+	    row.addString("word", "pk-10")
+	    row.addInt("cnt", 8888)
+	    session.apply(update)
+	  }
+
+### 删除表
+
+	def deleteTable(client: KuduClient, tableName: String) = {
+	    client.deleteTable(tableName)
+	  }
+	  
+	  

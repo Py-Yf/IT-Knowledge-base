@@ -1,0 +1,60 @@
+CREATE TABLE `cms_relate_telephones` (
+  `serial_no` string COMMENT '记录流水',
+  `prison_code` string COMMENT '编码',
+  `area_code` string COMMENT '编码',
+  `month_info` int COMMENT '考评月份',
+  `event_date` STRING COMMENT '记录日期',
+  `criminal_code` string COMMENT '番号',
+  `criminal_name` string COMMENT '姓名',
+  `manage_police` string COMMENT '主管',
+  `manage_police_name` string COMMENT '主管姓名',
+  `current_tel_no` string COMMENT '电话',
+  `crime_relate` string COMMENT '关系',
+  `relate_serial_no` string COMMENT '编码',
+  `view_person` string COMMENT '受话人',
+  `curr_veiw_date` STRING  COMMENT '日期',
+  `view_bg_time` timestamp  COMMENT '开始时间',
+  `view_ed_time` timestamp  COMMENT '结束时间',
+  `actual_view_len` int COMMENT '时长',
+  `person_id` string COMMENT '号码',
+  `prov_code` int COMMENT '编码',
+  `city_code` int COMMENT '编码',
+  `district_code` int COMMENT '编码',
+  `detail_address` string COMMENT '地址',
+  `view_detail_url` string COMMENT '跳转URL',
+  `valid_flag` string COMMENT '标识',
+  `remark` string COMMENT '备注',
+  `op_user_id` string COMMENT '操作人',
+  `op_user_name` string  COMMENT '操作人名称',
+  `update_time` timestamp  COMMENT '操作时间',
+  `creator` string COMMENT '创建人',
+  `creator_name` string COMMENT '创建人名称',
+  `create_time` timestamp  COMMENT '创建时间',
+  `data_src_flag` string COMMENT '数据来源标识')
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ; 
+
+CREATE TABLE `edw_relate_telephones` (
+  `serial_no` string COMMENT '记录流水',
+  `prison_code` string COMMENT '编码',
+  `area_code` string COMMENT '编码',
+  `event_date` STRING COMMENT '记录日期',
+  `criminal_code` string COMMENT '番号',
+  `current_tel_no` string COMMENT '电话',
+  `curr_veiw_date` STRING  COMMENT '日期',
+  `view_bg_time` timestamp  COMMENT '开始时间',
+  `view_ed_time` timestamp  COMMENT '结束时间',
+  `actual_view_len` int COMMENT '时长',
+  `valid_flag` string COMMENT '标识',
+  `data_src_flag` string COMMENT '数据来源标识'
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ; 
+
+CREATE TABLE `adm_relate_count` (
+  `prison_code` string COMMENT '编码',
+  `area_code` string COMMENT '编码',
+  `relate_count` int COMMENT '计数',
+  `criminal_code` string COMMENT '番号',
+  `event_date` STRING COMMENT '记录日期', 
+  `curr_veiw_date` STRING  COMMENT '日期'
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ; 

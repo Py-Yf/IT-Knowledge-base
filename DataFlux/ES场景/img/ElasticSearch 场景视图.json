@@ -1,0 +1,3050 @@
+{
+  "dashboardExtend": {},
+  "dashboardType": "CUSTOM",
+  "main": {
+    "charts": [
+      {
+        "extend": {
+          "isRefresh": false,
+          "links": [],
+          "settings": {
+            "backgroundStyle": {
+              "background-size": "contain"
+            },
+            "type": "contain",
+            "url": "https://pic2.zhimg.com/v2-aca68502001908e3d65b5eab9be3a897_r.jpg"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "elasticsearch",
+        "pos": {
+          "h": 9,
+          "i": 0,
+          "w": 3,
+          "x": 0,
+          "y": 0
+        },
+        "queries": [],
+        "type": "picture"
+      },
+      {
+        "extend": {
+          "links": [
+            {
+              "alias": "默认",
+              "open": "newWin",
+              "url": "https://console.dataflux.cn/insight/scen_a4a888784f2f11eb9aa912c85b564153?dashboard_id=dsbd_d18d4a9c65f311eb9796d20989ad5329&node_id=node_d18d41f065f311eb9796d20989ad5329&time=#{TR}&variable={\"cluster_name\":\"#{V.cluster_name}\",\"host\":\"#{host}\"}"
+            }
+          ],
+          "settings": {
+            "bar": {
+              "direction": "horizontal",
+              "xAxisShowType": "groupBy"
+            },
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "table",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "pageSize": 50,
+            "queryMode": "toGroupColumn",
+            "showLine": false,
+            "showTableHead": true,
+            "showTopSize": true,
+            "table": {
+              "queryMode": "toGroupColumn"
+            },
+            "tableSortMetricName": "key",
+            "tableSortType": "top",
+            "topSize": 10,
+            "units": [
+              {
+                "key": "CPU利用率",
+                "name": "CPU利用率",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              },
+              {
+                "key": "内存利用率",
+                "name": "内存利用率",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "集群节点数",
+        "pos": {
+          "h": 13,
+          "i": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "CPU利用率",
+              "code": "B",
+              "dataSource": "elasticsearch_os",
+              "field": "cpu_percent",
+              "fieldFunc": "avg",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "0e17c0c0-66ba-11eb-a958-173bb9f6fa8b",
+                  "logic": "and",
+                  "name": "cluster_name",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{cluster_name}"
+                }
+              ],
+              "funcList": [
+                "avg",
+                "top:100"
+              ],
+              "groupBy": [
+                "host"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(AVG(`cpu_percent`) AS `CPU利用率`) { `cluster_name` = '#{cluster_name}' } [::auto] by `host`",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "table",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "内存利用率",
+              "code": "A",
+              "dataSource": "elasticsearch_os",
+              "field": "mem_used_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "724189a0-66ba-11eb-a958-173bb9f6fa8b",
+                  "logic": "and",
+                  "name": "cluster_name",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{cluster_name}"
+                }
+              ],
+              "funcList": [
+                "last",
+                "top:100"
+              ],
+              "groupBy": [
+                "host"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`mem_used_percent`) AS `内存利用率`) { `cluster_name` = '#{cluster_name}' } [::auto] by `host`",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "table",
+            "unit": ""
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [
+              {
+                "bgColor": "rgba(249,237,80,1)",
+                "fontColor": "rgba(251,247,247,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "yeliow"
+                ]
+              },
+              {
+                "bgColor": "rgba(246,7,7,1)",
+                "fontColor": "rgba(249,245,245,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "red"
+                ]
+              },
+              {
+                "bgColor": "rgba(9,239,15,1)",
+                "fontColor": "rgba(249,241,241,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "green"
+                ]
+              }
+            ],
+            "lineColor": "#3AB8FF",
+            "mappings": [],
+            "openCompare": false,
+            "showLine": false,
+            "showLineAxis": false,
+            "tableSortMetricName": "elasticsearch_cluster_health_active_primary_shards",
+            "units": []
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "集群状态",
+        "pos": {
+          "h": 9,
+          "i": 2,
+          "w": 4,
+          "x": 3,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "status",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`status`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": null
+        },
+        "name": "活跃主分片数",
+        "pos": {
+          "h": 9,
+          "i": 3,
+          "w": 3,
+          "x": 18,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "active_primary_shards",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`active_primary_shards`) AS `#{M}_#{F}`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": null
+        },
+        "name": "打开文件符平均数目",
+        "pos": {
+          "h": 9,
+          "i": 4,
+          "w": 3,
+          "x": 15,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_clusterstats_nodes",
+              "field": "process_open_file_descriptors_avg",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_clusterstats_nodes`:(LAST(`process_open_file_descriptors_avg`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "links": [],
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "#3AB8FF",
+            "mappings": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "showLineAxis": false,
+            "tableSortMetricName": "elasticsearch_clusterstats_indices_store_size_in_bytes",
+            "timeInterval": {
+              "type": "auto"
+            },
+            "units": [
+              {
+                "key": "result",
+                "name": "result",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "MB"
+                ]
+              }
+            ]
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "存储总计",
+        "pos": {
+          "h": 9,
+          "i": 5,
+          "w": 4,
+          "x": 11,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "children": [
+                {
+                  "alias": "",
+                  "code": "B1",
+                  "dataSource": "elasticsearch_clusterstats_indices",
+                  "field": "store_size_in_bytes",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_clusterstats_indices`:(LAST(`store_size_in_bytes`))  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                }
+              ],
+              "code": "B",
+              "expression": "B1/1024/2024",
+              "q": "F::dataflux__dql:(EXEC_FORMULA(expr='B1/1024/2024', B1=dql(\"M::`elasticsearch_clusterstats_indices`:(LAST(`store_size_in_bytes`))  [::auto]\")))",
+              "type": "expression"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "fixedTime": null,
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "接收",
+            "units": [
+              {
+                "key": "接收",
+                "name": "接收",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": "网络性能"
+        },
+        "name": "接收",
+        "pos": {
+          "h": 12,
+          "i": 9,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "接收",
+              "code": "D",
+              "dataSource": "elasticsearch_transport",
+              "field": "rx_size_in_bytes",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [],
+              "funcList": [],
+              "groupBy": [
+                "node_host"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "F::dataflux__dql:(dql(\"M::`elasticsearch_transport`:(LAST(`rx_size_in_bytes`) AS `接收`)  [::auto] by `node_host`\").`NON_NEGATIVE_DERIVATIVE`())",
+              "queryFuncs": [
+                {
+                  "args": [],
+                  "name": "NON_NEGATIVE_DERIVATIVE"
+                }
+              ],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "fixedTime": null,
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "units": []
+          }
+        },
+        "group": {
+          "name": "网络性能"
+        },
+        "name": "Http连接数",
+        "pos": {
+          "h": 12,
+          "i": 10,
+          "w": 12,
+          "x": 0,
+          "y": 12
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "HTTP连接数",
+              "code": "D",
+              "dataSource": "elasticsearch_http",
+              "field": "current_open",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [],
+              "funcList": [],
+              "groupBy": [
+                "node_host"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_http`:(LAST(`current_open`) AS `HTTP连接数`)  [::auto] by `node_host`",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "fixedTime": null,
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "units": []
+          }
+        },
+        "group": {
+          "name": "网络性能"
+        },
+        "name": "失败请求数",
+        "pos": {
+          "h": 12,
+          "i": 11,
+          "w": 12,
+          "x": 12,
+          "y": 12
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "失败请求数",
+              "code": "A",
+              "dataSource": "elasticsearch_indices_stats_total",
+              "field": "__get_missing_total",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "80dd6b00-6129-11eb-b1a8-c59d54676044",
+                  "logic": "and",
+                  "name": "index_name",
+                  "op": "=",
+                  "type": "",
+                  "value": "_all"
+                }
+              ],
+              "groupBy": [
+                "time"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_indices_stats_total`:(LAST(`__get_missing_total`) AS `失败请求数`) { `index_name` = '_all' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "活跃分片数",
+        "pos": {
+          "h": 10,
+          "i": 18,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "active_shards",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`active_shards`) AS `#{M}_#{F}`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "初始化中分片数",
+        "pos": {
+          "h": 10,
+          "i": 19,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "initializing_shards",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`initializing_shards`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "迁移中分片数",
+        "pos": {
+          "h": 10,
+          "i": 20,
+          "w": 6,
+          "x": 12,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "relocating_shards",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`relocating_shards`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {},
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "未分配分片数",
+        "pos": {
+          "h": 10,
+          "i": 21,
+          "w": 6,
+          "x": 18,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "unassigned_shards",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`unassigned_shards`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "fixedTime": {
+            "isSelected": false,
+            "key": "1h",
+            "text": "最近1小时"
+          },
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "units": []
+          }
+        },
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "活跃分片",
+        "pos": {
+          "h": 12,
+          "i": 22,
+          "w": 12,
+          "x": 0,
+          "y": 10
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "活跃分片",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "active_shards",
+              "fieldFunc": "last",
+              "fieldType": "integer",
+              "fill": null,
+              "filters": [],
+              "groupBy": [
+                "time"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`active_shards`) AS `活跃分片`)  [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "fixedTime": {
+            "isSelected": false,
+            "key": "1h",
+            "text": "最近1小时"
+          },
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "units": []
+          }
+        },
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "初始化,迁移,未分配分片",
+        "pos": {
+          "h": 12,
+          "i": 23,
+          "w": 12,
+          "x": 12,
+          "y": 10
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "未分配分片",
+              "code": "C",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "unassigned_shards",
+              "fieldFunc": "last",
+              "fieldType": "integer",
+              "fill": null,
+              "filters": [],
+              "groupBy": [
+                "time"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`unassigned_shards`) AS `未分配分片`)  [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "初始化分片",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "initializing_shards",
+              "fieldFunc": "last",
+              "fieldType": "integer",
+              "fill": null,
+              "filters": [],
+              "groupBy": [
+                "time"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`initializing_shards`) AS `初始化分片`)  [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "迁移中分片",
+              "code": "B",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "relocating_shards",
+              "fieldFunc": "last",
+              "fieldType": "integer",
+              "fill": null,
+              "filters": [],
+              "groupBy": [
+                "time"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`relocating_shards`) AS `迁移中分片`)  [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [
+              {
+                "bgColor": "rgba(249,237,80,1)",
+                "fontColor": "rgba(251,247,247,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "yeliow"
+                ]
+              },
+              {
+                "bgColor": "rgba(246,7,7,1)",
+                "fontColor": "rgba(249,245,245,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "red"
+                ]
+              },
+              {
+                "bgColor": "rgba(9,239,15,1)",
+                "fontColor": "rgba(249,241,241,1)",
+                "lineColor": "#c23531",
+                "operation": "=",
+                "value": [
+                  "green"
+                ]
+              }
+            ],
+            "lineColor": "#3AB8FF",
+            "mappings": [],
+            "openCompare": false,
+            "showLine": false,
+            "showLineAxis": false,
+            "tableSortMetricName": "elasticsearch_cluster_health_active_primary_shards",
+            "units": []
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "数据节点数",
+        "pos": {
+          "h": 9,
+          "i": 6,
+          "w": 4,
+          "x": 7,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "number_of_data_nodes",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`number_of_data_nodes`) AS `#{M}_#{F}`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "fixedTime": null,
+          "links": [],
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "发送",
+            "units": [
+              {
+                "key": "发送",
+                "name": "发送",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": "网络性能"
+        },
+        "name": "发送",
+        "pos": {
+          "h": 12,
+          "i": 12,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "发送",
+              "code": "B",
+              "dataSource": "elasticsearch_transport",
+              "field": "tx_size_in_bytes",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [],
+              "funcList": [],
+              "groupBy": [
+                "host"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "F::dataflux__dql:(dql(\"M::`elasticsearch_transport`:(LAST(`tx_size_in_bytes`) AS `发送`)  [::auto] by `host`\").`NON_NEGATIVE_DERIVATIVE`())",
+              "queryFuncs": [
+                {
+                  "args": [],
+                  "name": "NON_NEGATIVE_DERIVATIVE"
+                }
+              ],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": "集群性能"
+        },
+        "name": "搜索性能",
+        "pos": {
+          "h": 17,
+          "i": 14,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "queries": [
+          {
+            "actions": [
+              {
+                "label": "修改",
+                "type": "chart",
+                "uuid": "main",
+                "value": "modify"
+              },
+              {
+                "label": "复制",
+                "type": "chart",
+                "uuid": "main",
+                "value": "copy"
+              },
+              {
+                "label": "组合图表",
+                "type": "sequence",
+                "uuid": "main",
+                "value": "combine"
+              },
+              {
+                "label": "设置锁定时间",
+                "type": "chart",
+                "uuid": "main",
+                "value": "setFixedTime"
+              },
+              {
+                "label": "删除",
+                "type": "chart",
+                "uuid": "main",
+                "value": "delete"
+              }
+            ],
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612247992,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "fixedOptions": {
+              "groupKey": "chart",
+              "options": {
+                "extend": {
+                  "settings": {
+                    "chartType": "line",
+                    "colors": [],
+                    "levels": [],
+                    "mark": {
+                      "axis": "x",
+                      "data": [],
+                      "type": "area"
+                    },
+                    "openCompare": false,
+                    "showLine": false,
+                    "units": [],
+                    "xAxisShowType": "time"
+                  }
+                },
+                "name": "集群当前查询获取量",
+                "queryList": [
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "正在进行的查询数",
+                      "code": "A",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_query_current",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_current`) AS `正在进行的查询数`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  },
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "正在进行的获取次数",
+                      "code": "B",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_fetch_current",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_current`) AS `正在进行的获取次数`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  }
+                ],
+                "type": "sequence"
+              }
+            },
+            "headerOptions": null,
+            "id": 25034,
+            "isInnerHeader": false,
+            "isShowFixed": true,
+            "name": "集群当前正在进行的查询获取数",
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "正在进行的查询数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_query_current",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_current`) AS `正在进行的查询数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              },
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "正在进行的获取次数",
+                  "code": "B",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_fetch_current",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_current`) AS `正在进行的获取次数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612250149,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "main",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "actions": [
+              {
+                "label": "修改",
+                "type": "chart",
+                "uuid": "6d62886a652711eb9fe522b51d9b8095",
+                "value": "modify"
+              },
+              {
+                "label": "复制",
+                "type": "chart",
+                "uuid": "6d62886a652711eb9fe522b51d9b8095",
+                "value": "copy"
+              },
+              {
+                "label": "组合图表",
+                "type": "sequence",
+                "uuid": "6d62886a652711eb9fe522b51d9b8095",
+                "value": "combine"
+              },
+              {
+                "label": "设置锁定时间",
+                "type": "chart",
+                "uuid": "6d62886a652711eb9fe522b51d9b8095",
+                "value": "setFixedTime"
+              },
+              {
+                "label": "删除",
+                "type": "chart",
+                "uuid": "6d62886a652711eb9fe522b51d9b8095",
+                "value": "delete"
+              }
+            ],
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612250298,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "currentChartType": "sequence",
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "查询总耗时",
+                "units": [
+                  {
+                    "key": "查询总耗时",
+                    "name": "查询总耗时",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  },
+                  {
+                    "key": "获取总耗时",
+                    "name": "获取总耗时",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "fixedOptions": {
+              "groupKey": "chart",
+              "options": {
+                "extend": {
+                  "settings": {
+                    "chartType": "line",
+                    "colors": [],
+                    "currentChartType": "sequence",
+                    "levels": [],
+                    "mark": {
+                      "axis": "x",
+                      "data": [],
+                      "type": "area"
+                    },
+                    "openCompare": false,
+                    "showLine": false,
+                    "tableSortMetricName": "查询总耗时",
+                    "units": [
+                      {
+                        "key": "查询总耗时",
+                        "name": "查询总耗时",
+                        "unit": "",
+                        "units": [
+                          "time",
+                          "ms"
+                        ]
+                      },
+                      {
+                        "key": "获取总耗时",
+                        "name": "获取总耗时",
+                        "unit": "",
+                        "units": [
+                          "time",
+                          "ms"
+                        ]
+                      }
+                    ],
+                    "xAxisShowType": "time"
+                  }
+                },
+                "name": "集群查询获取总耗时",
+                "queryList": [
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "查询总耗时",
+                      "code": "A",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_query_time_in_millis",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_time_in_millis`) AS `查询总耗时`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  },
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "获取总耗时",
+                      "code": "B",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_fetch_time_in_millis",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_time_in_millis`) AS `获取总耗时`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  }
+                ],
+                "type": "sequence"
+              }
+            },
+            "headerOptions": null,
+            "id": 25036,
+            "isInnerHeader": false,
+            "isShowFixed": true,
+            "name": "集群查询获取操作总耗时",
+            "pos": {
+              "h": 12,
+              "i": 8,
+              "w": 8,
+              "x": 16,
+              "y": 0
+            },
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "查询总耗时",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_query_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_time_in_millis`) AS `查询总耗时`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              },
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "获取总耗时",
+                  "code": "B",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_fetch_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_time_in_millis`) AS `获取总耗时`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612250477,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "6d62886a652711eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "actions": [
+              {
+                "label": "修改",
+                "type": "chart",
+                "uuid": "6d6289be652711eb9fe522b51d9b8095",
+                "value": "modify"
+              },
+              {
+                "label": "复制",
+                "type": "chart",
+                "uuid": "6d6289be652711eb9fe522b51d9b8095",
+                "value": "copy"
+              },
+              {
+                "label": "组合图表",
+                "type": "sequence",
+                "uuid": "6d6289be652711eb9fe522b51d9b8095",
+                "value": "combine"
+              },
+              {
+                "label": "设置锁定时间",
+                "type": "chart",
+                "uuid": "6d6289be652711eb9fe522b51d9b8095",
+                "value": "setFixedTime"
+              },
+              {
+                "label": "删除",
+                "type": "chart",
+                "uuid": "6d6289be652711eb9fe522b51d9b8095",
+                "value": "delete"
+              }
+            ],
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612248038,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "fixedOptions": {
+              "groupKey": "chart",
+              "options": {
+                "extend": {
+                  "settings": {
+                    "chartType": "line",
+                    "colors": [],
+                    "levels": [],
+                    "mark": {
+                      "axis": "x",
+                      "data": [],
+                      "type": "area"
+                    },
+                    "openCompare": false,
+                    "showLine": false,
+                    "units": [],
+                    "xAxisShowType": "time"
+                  }
+                },
+                "name": "集群查询获取总数",
+                "queryList": [
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "查询总数",
+                      "code": "A",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_query_total",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_total`) AS `查询总数`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  },
+                  {
+                    "color": "",
+                    "datasource": "dataflux",
+                    "name": "",
+                    "qtype": "dql",
+                    "query": {
+                      "alias": "获取总数",
+                      "code": "B",
+                      "dataSource": "elasticsearch_indices_stats_total",
+                      "field": "search_fetch_total",
+                      "fieldFunc": "last",
+                      "fieldType": "float",
+                      "fill": null,
+                      "filter": {
+                        "tags": []
+                      },
+                      "filters": [],
+                      "funcList": [],
+                      "groupBy": [],
+                      "groupByTime": "",
+                      "namespace": "metric",
+                      "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_total`) AS `获取总数`)  [::auto]",
+                      "queryFuncs": [],
+                      "type": "simple"
+                    },
+                    "unit": ""
+                  }
+                ],
+                "type": "sequence"
+              }
+            },
+            "headerOptions": null,
+            "id": 25035,
+            "isInnerHeader": false,
+            "isShowFixed": true,
+            "name": "集群查询获取操作的总数",
+            "pos": {
+              "h": 12,
+              "i": 22,
+              "w": 8,
+              "x": 8,
+              "y": 0
+            },
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "查询总数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_query_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_query_total`) AS `查询总数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              },
+              {
+                "checked": true,
+                "color": "",
+                "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "获取总数",
+                  "code": "B",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "search_fetch_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filter": {
+                    "tags": []
+                  },
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`search_fetch_total`) AS `获取总数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612250215,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "6d6289be652711eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          }
+        ],
+        "type": "combine"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "last(__completion_size_in_bytes)",
+            "units": [
+              {
+                "key": "索引合并花费时间",
+                "name": "索引合并花费时间",
+                "unit": "",
+                "units": [
+                  "time",
+                  "ms"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": "集群性能"
+        },
+        "name": "索引延迟性能",
+        "pos": {
+          "h": 18,
+          "i": 15,
+          "w": 24,
+          "x": 0,
+          "y": 17
+        },
+        "queries": [
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612252063,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "isCombineChart": true,
+              "isRefresh": false,
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "last(__completion_size_in_bytes)",
+                "units": [
+                  {
+                    "key": "索引合并花费时间",
+                    "name": "索引合并花费时间",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25042,
+            "name": "索引合并花费时间",
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "索引合并花费时间",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "merges_total_stopped_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`merges_total_stopped_time_in_millis`) AS `索引合并花费时间`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": "",
+                "uuid": "29ce6ff0-69c9-11eb-8b86-f9d2802a5aa2"
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612252063,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "main",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612251896,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "isCombineChart": true,
+              "isRefresh": false,
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "last(__completion_size_in_bytes)",
+                "units": [
+                  {
+                    "key": "刷新索引的总时间",
+                    "name": "刷新索引的总时间",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25040,
+            "name": "刷新索引的总时间",
+            "pos": {
+              "h": 12,
+              "i": 21,
+              "w": 8,
+              "x": 12,
+              "y": 12
+            },
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "刷新索引的总时间",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "refresh_total_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`refresh_total_time_in_millis`) AS `刷新索引的总时间`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": "",
+                "uuid": "46474170-69c9-11eb-8b86-f9d2802a5aa2"
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612251896,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22bab269ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612251983,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "isCombineChart": true,
+              "isRefresh": false,
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "last(__completion_size_in_bytes)",
+                "units": [
+                  {
+                    "key": "将索引刷新到磁盘上的总时间",
+                    "name": "将索引刷新到磁盘上的总时间",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25041,
+            "name": "索引刷新到磁盘上的总时间",
+            "pos": {
+              "h": 12,
+              "i": 22,
+              "w": 8,
+              "x": 12,
+              "y": 24
+            },
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "将索引刷新到磁盘上的总时间",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "flush_total_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`flush_total_time_in_millis`) AS `将索引刷新到磁盘上的总时间`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": "",
+                "uuid": "55db7200-69c9-11eb-8b86-f9d2802a5aa2"
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612251997,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22c0d469ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612251840,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "isCombineChart": true,
+              "isRefresh": false,
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "last(__completion_size_in_bytes)",
+                "units": [
+                  {
+                    "key": "索引文档总时间",
+                    "name": "索引文档总时间",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25039,
+            "name": "索引文档总时间",
+            "pos": {
+              "h": 12,
+              "i": 20,
+              "w": 8,
+              "x": 12,
+              "y": 48
+            },
+            "queries": [
+              {
+                "checked": true,
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "索引文档总时间",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "indexing_index_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`indexing_index_time_in_millis`) AS `索引文档总时间`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": "",
+                "uuid": "6cb3ae70-69c9-11eb-8b86-f9d2802a5aa2"
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612251840,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22c64c69ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1609839055,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "links": [],
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "currentChartType": "sequence",
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "tableSortMetricName": "查询延迟",
+                "units": [
+                  {
+                    "key": "查询延迟",
+                    "name": "查询延迟",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  },
+                  {
+                    "key": "读取延迟",
+                    "name": "读取延迟",
+                    "unit": "",
+                    "units": [
+                      "time",
+                      "ms"
+                    ]
+                  }
+                ],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 22977,
+            "name": "索引平均查询和读取延迟",
+            "pos": {
+              "h": 12,
+              "i": 17,
+              "w": 8,
+              "x": 16,
+              "y": 72
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "获取延迟",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "search_fetch_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`search_fetch_time_in_millis`) AS `获取延迟`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              },
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "查询延迟",
+                  "code": "B",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "search_query_time_in_millis",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`search_query_time_in_millis`) AS `查询延迟`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612251379,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22ce8069ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_044bf62c65f411eb8a57d20989ad5329",
+            "createAt": 1612760426,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25723,
+            "name": "索引的文档总数",
+            "pos": {
+              "h": 12,
+              "i": 18,
+              "w": 8,
+              "x": 8,
+              "y": 35
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "索引的文档总数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "indexing_index_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "82b803a0-69ca-11eb-8b86-f9d2802a5aa2",
+                      "logic": "and",
+                      "name": "cluster_name",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{cluster_name}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [
+                    "cluster_name"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`indexing_index_total`) AS `索引的文档总数`) { `cluster_name` = '#{cluster_name}' } [::auto] by `cluster_name`",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612760426,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22cf3e69ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_044bf62c65f411eb8a57d20989ad5329",
+            "createAt": 1612760340,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25722,
+            "name": "刷新到磁盘的索引总数",
+            "pos": {
+              "h": 12,
+              "i": 17,
+              "w": 8,
+              "x": 0,
+              "y": 35
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "刷新到磁盘的索引总数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "flush_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "485f5690-69ca-11eb-8b86-f9d2802a5aa2",
+                      "logic": "and",
+                      "name": "cluster_name",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{cluster_name}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [
+                    "cluster_name"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`flush_total`) AS `刷新到磁盘的索引总数`) { `cluster_name` = '#{cluster_name}' } [::auto] by `cluster_name`",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612760340,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22cfca69ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_044bf62c65f411eb8a57d20989ad5329",
+            "createAt": 1612760472,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25724,
+            "name": "当前正在编制索引的文档数",
+            "pos": {
+              "h": 12,
+              "i": 19,
+              "w": 8,
+              "x": 16,
+              "y": 35
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "当前正在编制索引的文档数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "indexing_index_current",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`indexing_index_current`) AS `当前正在编制索引的文档数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "type": "sequence",
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612760472,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "cc22d05669ca11ebbe3d462bdbf1509e",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          }
+        ],
+        "type": "combine"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": "集群性能"
+        },
+        "name": "索引合并性能",
+        "pos": {
+          "h": 18,
+          "i": 16,
+          "w": 24,
+          "x": 0,
+          "y": 35
+        },
+        "queries": [
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612252307,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25043,
+            "name": "当前合并文档数",
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "当前合并文档数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "merges_current_docs",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`merges_current_docs`) AS `当前合并文档数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612252307,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "main",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1609839046,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "fixedTime": {
+                "isSelected": false,
+                "key": "1h",
+                "text": "最近1小时"
+              },
+              "links": [],
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "units": []
+              }
+            },
+            "id": 22973,
+            "name": "索引文档总数",
+            "pos": {
+              "h": 12,
+              "i": 14,
+              "w": 8,
+              "x": 0,
+              "y": 48
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "索引文档总数",
+                  "code": "B",
+                  "dataSource": "elasticsearch_indices",
+                  "field": "indexing_index_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "41b9dc40-50be-11eb-bb79-990995079c1c",
+                      "logic": "and",
+                      "name": "cluster_name",
+                      "op": "=",
+                      "type": "",
+                      "value": "solution"
+                    }
+                  ],
+                  "groupBy": [
+                    "time"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices`:(LAST(`indexing_index_total`) AS `索引文档总数`) { `cluster_name` = 'solution' } [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1611811614,
+            "updator": "acnt_4ee827222e2311eb9acafa36e5ade170",
+            "uuid": "d4b1f858652b11eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612251003,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25037,
+            "name": "索引总刷新量",
+            "pos": {
+              "h": 12,
+              "i": 18,
+              "w": 8,
+              "x": 16,
+              "y": 36
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "总刷新计数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "refresh_total",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`refresh_total`) AS `总刷新计数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612251003,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "d4b1fdbc652b11eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1612252375,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "showLine": false,
+                "units": [],
+                "xAxisShowType": "time"
+              }
+            },
+            "id": 25044,
+            "name": "合并文档总数",
+            "pos": {
+              "h": 12,
+              "i": 28,
+              "w": 8,
+              "x": 8,
+              "y": 36
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "合并文档总数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_indices_stats_total",
+                  "field": "merges_total_docs",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_indices_stats_total`:(LAST(`merges_total_docs`) AS `合并文档总数`)  [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1612252375,
+            "updator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "uuid": "d4b20294652b11eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          },
+          {
+            "chartGroupUUID": "chtg_5d7cbb644f3811eb9bc00ee839f6902b",
+            "createAt": 1609839047,
+            "creator": "acnt_f9215590252f11eaaab16244ef37fd63",
+            "dashboardUUID": "dsbd_b57cdd204f2f11eba7c612c85b564153",
+            "deleteAt": -1,
+            "extend": {
+              "links": [],
+              "settings": {
+                "chartType": "line",
+                "colors": [],
+                "levels": [],
+                "mark": {
+                  "axis": "x",
+                  "data": [],
+                  "type": "area"
+                },
+                "openCompare": false,
+                "units": []
+              }
+            },
+            "id": 22974,
+            "name": "等待处理任务数",
+            "pos": {
+              "h": 12,
+              "i": 13,
+              "w": 8,
+              "x": 8,
+              "y": 36
+            },
+            "queries": [
+              {
+                "color": "",
+                "datasource": "dataflux",
+                "name": "",
+                "qtype": "dql",
+                "query": {
+                  "alias": "等待处理任务数",
+                  "code": "A",
+                  "dataSource": "elasticsearch_cluster_health",
+                  "field": "number_of_pending_tasks",
+                  "fieldFunc": "last",
+                  "fieldType": "integer",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "19895ba0-50bf-11eb-bb79-990995079c1c",
+                      "logic": "and",
+                      "name": "name",
+                      "op": "=",
+                      "type": "",
+                      "value": "solution"
+                    }
+                  ],
+                  "groupBy": [
+                    "time"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_cluster_health`:(LAST(`number_of_pending_tasks`) AS `等待处理任务数`) { `name` = 'solution' } [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                "unit": ""
+              }
+            ],
+            "status": 0,
+            "type": "sequence",
+            "updateAt": 1611811599,
+            "updator": "acnt_4ee827222e2311eb9acafa36e5ade170",
+            "uuid": "d4b2032a652b11eb9fe522b51d9b8095",
+            "workspaceUUID": "wksp_996d73d3b95f43f1848a137186586ab4"
+          }
+        ],
+        "type": "combine"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "#3AB8FF",
+            "mappings": [],
+            "openCompare": false,
+            "showLine": false,
+            "showLineAxis": false,
+            "tableSortMetricName": "elasticsearch_cluster_health_active_primary_shards",
+            "units": []
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "等待处理任务数",
+        "pos": {
+          "h": 9,
+          "i": 7,
+          "w": 3,
+          "x": 21,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1",
+              "code": "A",
+              "dataSource": "elasticsearch_cluster_health",
+              "field": "number_of_pending_tasks",
+              "fieldFunc": "last",
+              "fill": null,
+              "filters": [],
+              "groupBy": [],
+              "namespace": "metric",
+              "q": "M::`elasticsearch_cluster_health`:(LAST(`number_of_pending_tasks`) AS `1`)   ",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "settings": {
+            "addColumns": [
+              {
+                "field": "cluster_name"
+              },
+              {
+                "field": "host"
+              },
+              {
+                "field": "level"
+              },
+              {
+                "field": "event"
+              },
+              {
+                "field": "content",
+                "minWidth": 40,
+                "sort": null
+              }
+            ],
+            "colors": [],
+            "inColumns": [
+              {
+                "cellRendererFramework": "TimeCellRender",
+                "field": "time",
+                "headerName": "时间",
+                "maxWidth": 200
+              }
+            ],
+            "tableSortMetricName": "__docid",
+            "units": []
+          }
+        },
+        "group": {
+          "name": "Shards性能"
+        },
+        "name": "集群日志信息",
+        "pos": {
+          "h": 17,
+          "i": 24,
+          "w": 24,
+          "x": 0,
+          "y": 22
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "内容",
+              "code": "A",
+              "dataSource": "es_clusterlog",
+              "disableMultipleField": false,
+              "field": null,
+              "fieldFunc": "last",
+              "fieldType": "text",
+              "fields": [
+                {
+                  "field": "cluster_name"
+                },
+                {
+                  "field": "host"
+                },
+                {
+                  "field": "level"
+                },
+                {
+                  "field": "event"
+                },
+                {
+                  "field": "content"
+                }
+              ],
+              "fill": null,
+              "filters": [
+                {
+                  "id": "16b4a910-692f-11eb-a501-b9f39fa17acc",
+                  "logic": "and",
+                  "name": "cluster_name",
+                  "op": "=",
+                  "type": "keyword",
+                  "value": "#{cluster_name}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "limit": 100,
+              "namespace": "logging",
+              "q": "L::`es_clusterlog`:(`cluster_name`, `host`, `level`, `event`, `content`, `__docid`) { `cluster_name` = '#{cluster_name}' } LIMIT 100",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "log",
+            "unit": ""
+          }
+        ],
+        "type": "log"
+      }
+    ],
+    "groups": [
+      "网络性能",
+      "集群性能",
+      "Shards性能"
+    ],
+    "type": "template",
+    "vars": [
+      {
+        "code": "cluster_name",
+        "datasource": "ftinfluxdb",
+        "definition": {
+          "field": "",
+          "metric": "elasticsearch_os",
+          "object": "",
+          "tag": "cluster_name",
+          "value": ""
+        },
+        "hide": 0,
+        "name": "集群名称",
+        "seq": 0,
+        "type": "TAG",
+        "valueSort": "default"
+      }
+    ]
+  },
+  "summary": "",
+  "tags": [],
+  "thumbnail": "",
+  "title": "Elasticsearch-Overview"
+}

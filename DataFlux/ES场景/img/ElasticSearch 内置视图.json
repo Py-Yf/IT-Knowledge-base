@@ -1,0 +1,1909 @@
+{
+  "dashboardExtend": {},
+  "dashboardType": "CUSTOM",
+  "main": {
+    "charts": [
+      {
+        "extend": {
+          "isRefresh": false,
+          "links": [],
+          "settings": {
+            "backgroundStyle": {
+              "background-size": "contain"
+            },
+            "type": "contain",
+            "url": "https://pic2.zhimg.com/v2-aca68502001908e3d65b5eab9be3a897_r.jpg"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "elasticsearch",
+        "pos": {
+          "h": 8,
+          "i": 0,
+          "w": 4,
+          "x": 0,
+          "y": 0
+        },
+        "queries": [],
+        "type": "picture"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "doughnut",
+            "colors": [],
+            "currentChartType": "pie",
+            "showLegend": true,
+            "tableSortMetricName": "last(free)",
+            "units": [
+              {
+                "key": "last(total)",
+                "name": "last(total)",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "B"
+                ]
+              },
+              {
+                "key": "可用空间",
+                "name": "可用空间",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "B"
+                ]
+              },
+              {
+                "key": "已用空间",
+                "name": "已用空间",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "B"
+                ]
+              }
+            ]
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "磁盘使用",
+        "pos": {
+          "h": 13,
+          "i": 1,
+          "w": 8,
+          "x": 0,
+          "y": 21
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "可用空间",
+              "children": [
+                {
+                  "alias": "",
+                  "code": "A",
+                  "dataSource": "disk",
+                  "field": "used",
+                  "fieldFunc": "last",
+                  "fieldType": "integer",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "d69cf670-65e1-11eb-9166-3b5a507b66f8",
+                      "logic": "and",
+                      "name": "host",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{host}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [
+                    "device"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`disk`:(LAST(`used`)) { `host` = '#{host}' } [::auto] by `device`",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                {
+                  "alias": "",
+                  "code": "B",
+                  "dataSource": "disk",
+                  "field": "total",
+                  "fieldFunc": "last",
+                  "fieldType": "integer",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "e6d15ea0-65e1-11eb-9166-3b5a507b66f8",
+                      "logic": "and",
+                      "name": "host",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{host}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [
+                    "device"
+                  ],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`disk`:(LAST(`total`)) { `host` = '#{host}' } [::auto] by `device`",
+                  "queryFuncs": [],
+                  "type": "simple"
+                }
+              ],
+              "code": "B",
+              "expression": "B-A",
+              "funcList": [
+                "last"
+              ],
+              "q": "F::dataflux__dql:(EXEC_FORMULA(expr='B-A', alias='可用空间', A=dql(\"M::`disk`:(LAST(`used`)) { `host` = '#{host}' } [::auto] by `device`\"), B=dql(\"M::`disk`:(LAST(`total`)) { `host` = '#{host}' } [::auto] by `device`\")))",
+              "type": "expression"
+            },
+            "type": "pie",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "已用空间",
+              "code": "A",
+              "dataSource": "disk",
+              "field": "used",
+              "fieldFunc": "last",
+              "fieldType": "integer",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "6fa74180-65cf-11eb-bd7e-07d9079a2e64",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                },
+                {
+                  "id": "9d63ef60-65cf-11eb-bd7e-07d9079a2e64",
+                  "logic": "and",
+                  "name": "",
+                  "op": "=",
+                  "value": ""
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [
+                "device"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`disk`:(LAST(`used`) AS `已用空间`) { `host` = '#{host}' } [::auto] by `device`",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "pie",
+            "unit": ""
+          }
+        ],
+        "type": "pie"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "rgba(249,15,15,1)",
+            "mappings": [],
+            "openCompare": true,
+            "showLine": true,
+            "showLineAxis": false,
+            "tableSortMetricName": "last(free)",
+            "units": [
+              {
+                "key": "last(used_percent)",
+                "name": "last(used_percent)",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              }
+            ]
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "磁盘利用率",
+        "pos": {
+          "h": 8,
+          "i": 2,
+          "w": 5,
+          "x": 14,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "disk",
+              "field": "used_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "fillNum": null,
+              "filters": [
+                {
+                  "id": "d1e21100-65e2-11eb-b88b-b51aeb2adb58",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [
+                "device"
+              ],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`disk`:(LAST(`used_percent`)) { `host` = '#{host}' } [::auto] by `device`",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "singlestat",
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "doughnut",
+            "colors": [],
+            "currentChartType": "pie",
+            "showLegend": true,
+            "tableSortMetricName": "last(cgroup_cpu_cfs_period_micros)",
+            "units": [
+              {
+                "key": "可用内存",
+                "name": "可用内存",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              },
+              {
+                "key": "已用内存",
+                "name": "已用内存",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              },
+              {
+                "key": "last(used)",
+                "name": "last(used)",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              }
+            ]
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "内存使用",
+        "pos": {
+          "h": 13,
+          "i": 3,
+          "w": 8,
+          "x": 0,
+          "y": 8
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "可用内存",
+              "children": [
+                {
+                  "alias": "",
+                  "code": "A",
+                  "dataSource": "elasticsearch_os",
+                  "field": "mem_total_in_bytes",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "3bfcb1d0-65e3-11eb-b88b-b51aeb2adb58",
+                      "logic": "and",
+                      "name": "host",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{host}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_os`:(LAST(`mem_total_in_bytes`)) { `host` = '#{host}' } [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                },
+                {
+                  "alias": "",
+                  "code": "B",
+                  "dataSource": "elasticsearch_os",
+                  "field": "mem_used_in_bytes",
+                  "fieldFunc": "last",
+                  "fieldType": "float",
+                  "fill": null,
+                  "filters": [
+                    {
+                      "id": "4c21fed0-65e3-11eb-b88b-b51aeb2adb58",
+                      "logic": "and",
+                      "name": "host",
+                      "op": "=",
+                      "type": "",
+                      "value": "#{host}"
+                    }
+                  ],
+                  "funcList": [],
+                  "groupBy": [],
+                  "groupByTime": "",
+                  "namespace": "metric",
+                  "q": "M::`elasticsearch_os`:(LAST(`mem_used_in_bytes`)) { `host` = '#{host}' } [::auto]",
+                  "queryFuncs": [],
+                  "type": "simple"
+                }
+              ],
+              "code": "B",
+              "expression": "A-B",
+              "funcList": [
+                "last"
+              ],
+              "q": "F::dataflux__dql:(EXEC_FORMULA(expr='A-B', alias='可用内存', A=dql(\"M::`elasticsearch_os`:(LAST(`mem_total_in_bytes`)) { `host` = '#{host}' } [::auto]\"), B=dql(\"M::`elasticsearch_os`:(LAST(`mem_used_in_bytes`)) { `host` = '#{host}' } [::auto]\")))",
+              "type": "expression"
+            },
+            "type": "pie",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "已用内存",
+              "code": "A",
+              "dataSource": "elasticsearch_os",
+              "field": "mem_used_in_bytes",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "22066c80-65e3-11eb-b88b-b51aeb2adb58",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`mem_used_in_bytes`) AS `已用内存`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "pie",
+            "unit": ""
+          }
+        ],
+        "type": "pie"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "rgba(245,6,6,1)",
+            "mappings": [],
+            "openCompare": true,
+            "showLine": true,
+            "showLineAxis": false,
+            "tableSortMetricName": "last(mem_used_percent)",
+            "units": [
+              {
+                "key": "last(mem_used_percent)",
+                "name": "last(mem_used_percent)",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              }
+            ]
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "内存利用率",
+        "pos": {
+          "h": 8,
+          "i": 4,
+          "w": 5,
+          "x": 4,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "elasticsearch_os",
+              "field": "mem_used_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "fillNum": null,
+              "filters": [
+                {
+                  "id": "b0045a40-65ea-11eb-bd1b-81c3a85ec98f",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`mem_used_percent`)) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "singlestat",
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "settings": {
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "rgba(245,12,12,1)",
+            "mappings": [],
+            "openCompare": true,
+            "showLine": true,
+            "showLineAxis": false,
+            "tableSortMetricName": "last(cgroup_cpu_cfs_period_micros)",
+            "units": []
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "CPU利用率",
+        "pos": {
+          "h": 8,
+          "i": 5,
+          "w": 5,
+          "x": 9,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "",
+              "code": "A",
+              "dataSource": "elasticsearch_os",
+              "field": "cpu_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "d253a870-65eb-11eb-8e12-b5468aab0427",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`cpu_percent`)) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "singlestat",
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [
+              {
+                "bgColor": "#498BFE",
+                "title": "",
+                "value": null
+              }
+            ],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "15分钟负载",
+            "timeInterval": {
+              "type": ""
+            },
+            "units": [
+              {
+                "key": "1分钟负载",
+                "name": "1分钟负载",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent_decimal"
+                ]
+              },
+              {
+                "key": "15分钟负载",
+                "name": "15分钟负载",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent_decimal"
+                ]
+              },
+              {
+                "key": "5分钟负载",
+                "name": "5分钟负载",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent_decimal"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "CPU负载",
+        "pos": {
+          "h": 13,
+          "i": 6,
+          "w": 8,
+          "x": 8,
+          "y": 8
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "1分钟负载",
+              "code": "A",
+              "dataSource": "elasticsearch_os",
+              "field": "cpu_load_average_1m",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "f16e5880-65ec-11eb-8e12-b5468aab0427",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`cpu_load_average_1m`) AS `1分钟负载`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "15分钟负载",
+              "code": "C",
+              "dataSource": "elasticsearch_os",
+              "field": "cpu_load_average_15m",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "f16e5880-65ec-11eb-8e12-b5468aab0427",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`cpu_load_average_15m`) AS `15分钟负载`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "5分钟负载",
+              "code": "B",
+              "dataSource": "elasticsearch_os",
+              "field": "cpu_load_average_5m",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "f16e5880-65ec-11eb-8e12-b5468aab0427",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_os`:(LAST(`cpu_load_average_5m`) AS `5分钟负载`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "JVM垃圾搜集数",
+        "pos": {
+          "h": 13,
+          "i": 7,
+          "w": 8,
+          "x": 0,
+          "y": 34
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "old垃圾搜集数",
+              "code": "A",
+              "dataSource": "elasticsearch_jvm",
+              "field": "gc_collectors_old_collection_count",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "e405cfa0-65ee-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`gc_collectors_old_collection_count`) AS `old垃圾搜集数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "young垃圾搜集数",
+              "code": "C",
+              "dataSource": "elasticsearch_jvm",
+              "field": "gc_collectors_young_collection_count",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "e405cfa0-65ee-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`gc_collectors_young_collection_count`) AS `young垃圾搜集数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "result",
+            "timeInterval": {
+              "type": ""
+            },
+            "units": [
+              {
+                "key": "old垃圾回收时间",
+                "name": "old垃圾回收时间",
+                "unit": "",
+                "units": [
+                  "time",
+                  "ms"
+                ]
+              },
+              {
+                "key": "young垃圾回收时间",
+                "name": "young垃圾回收时间",
+                "unit": "",
+                "units": [
+                  "time",
+                  "ms"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "JVM垃圾回收时间",
+        "pos": {
+          "h": 13,
+          "i": 8,
+          "w": 8,
+          "x": 8,
+          "y": 34
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "old垃圾回收时间",
+              "code": "A",
+              "dataSource": "elasticsearch_jvm",
+              "field": "gc_collectors_old_collection_time_in_millis",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "0148a7e0-65ef-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`gc_collectors_old_collection_time_in_millis`) AS `old垃圾回收时间`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "young垃圾回收时间",
+              "code": "C",
+              "dataSource": "elasticsearch_jvm",
+              "field": "gc_collectors_young_collection_time_in_millis",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "0148a7e0-65ef-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`gc_collectors_young_collection_time_in_millis`) AS `young垃圾回收时间`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "singlestat",
+            "downsample": "last",
+            "levels": [],
+            "lineColor": "rgba(239,14,14,1)",
+            "mappings": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": true,
+            "showLineAxis": false,
+            "tableSortMetricName": "内存利用率",
+            "units": [
+              {
+                "key": "内存利用率",
+                "name": "内存利用率",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "JVM内存利用率",
+        "pos": {
+          "h": 8,
+          "i": 9,
+          "w": 5,
+          "x": 19,
+          "y": 0
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "内存利用率",
+              "code": "A",
+              "dataSource": "elasticsearch_jvm",
+              "field": "mem_heap_used_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "694d8810-65ef-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [
+                "last"
+              ],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`mem_heap_used_percent`) AS `内存利用率`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "singlestat",
+            "unit": ""
+          }
+        ],
+        "type": "singlestat"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "线程池中被拒绝的线程数",
+        "pos": {
+          "h": 13,
+          "i": 10,
+          "w": 8,
+          "x": 0,
+          "y": 60
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "合并索引线程池中被拒绝的线程数",
+              "code": "C",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "rollup_indexing_rejected",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`rollup_indexing_rejected`) AS `合并索引线程池中被拒绝的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "转换索引线程池中被拒绝的线程数",
+              "code": "D",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "transform_indexing_rejected",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`transform_indexing_rejected`) AS `转换索引线程池中被拒绝的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "搜索线程池中被拒绝的线程数",
+              "code": "A",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "search_rejected",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`search_rejected`) AS `搜索线程池中被拒绝的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "合并线程池中被拒绝的线程数",
+              "code": "B",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "force_merge_rejected",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`force_merge_rejected`) AS `合并线程池中被拒绝的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "索引丢失文件的请求数",
+        "pos": {
+          "h": 13,
+          "i": 11,
+          "w": 8,
+          "x": 16,
+          "y": 8
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "丢失文件的请求数",
+              "code": "A",
+              "dataSource": "elasticsearch_indices",
+              "field": "get_missing_total",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "8c01e430-65f1-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_indices`:(LAST(`get_missing_total`) AS `丢失文件的请求数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "文档丢失的请求时间",
+            "units": [
+              {
+                "key": "文档丢失的请求时间",
+                "name": "文档丢失的请求时间",
+                "unit": "",
+                "units": [
+                  "time",
+                  "ms"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "索引文档丢失的请求时间",
+        "pos": {
+          "h": 13,
+          "i": 12,
+          "w": 8,
+          "x": 16,
+          "y": 21
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "文档丢失的请求时间",
+              "code": "A",
+              "dataSource": "elasticsearch_indices",
+              "field": "get_missing_time_in_millis",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "b998e1a0-65f1-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_indices`:(LAST(`get_missing_time_in_millis`) AS `文档丢失的请求时间`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "currentChartType": "sequence",
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "last(completion_size_in_bytes)",
+            "units": [
+              {
+                "key": "索引缓存量",
+                "name": "索引缓存量",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "索引缓存量",
+        "pos": {
+          "h": 13,
+          "i": 13,
+          "w": 8,
+          "x": 8,
+          "y": 21
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "索引缓存量",
+              "code": "A",
+              "dataSource": "elasticsearch_indices",
+              "field": "fielddata_memory_size_in_bytes",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "6ba3f3d0-65f2-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_indices`:(LAST(`fielddata_memory_size_in_bytes`) AS `索引缓存量`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "线程池中排队的线程数",
+        "pos": {
+          "h": 13,
+          "i": 14,
+          "w": 8,
+          "x": 8,
+          "y": 47
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "合并索引线程池中排队的线程数",
+              "code": "C",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "rollup_indexing_queue",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`rollup_indexing_queue`) AS `合并索引线程池中排队的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "搜索线程池中排队的线程数",
+              "code": "A",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "search_queue",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`search_queue`) AS `搜索线程池中排队的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "转换索引线程池中排队的线程数",
+              "code": "D",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "transform_indexing_queue",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`transform_indexing_queue`) AS `转换索引线程池中排队的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          },
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "合并线程池中排队的线程数",
+              "code": "B",
+              "dataSource": "elasticsearch_thread_pool",
+              "field": "force_merge_queue",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "27a25ac0-65f0-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_thread_pool`:(LAST(`force_merge_queue`) AS `合并线程池中排队的线程数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "units": [],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "索引缓存驱逐次数",
+        "pos": {
+          "h": 13,
+          "i": 15,
+          "w": 8,
+          "x": 16,
+          "y": 47
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "缓存驱逐次数",
+              "code": "A",
+              "dataSource": "elasticsearch_indices",
+              "field": "fielddata_evictions",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "f47436c0-65f2-11eb-84dd-9d0bfcf33656",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_indices`:(LAST(`fielddata_evictions`) AS `缓存驱逐次数`) { `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "last(buffer_pools_direct_count)",
+            "units": [
+              {
+                "key": "last(mem_heap_used_percent)",
+                "name": "last(mem_heap_used_percent)",
+                "unit": "",
+                "units": [
+                  "percent",
+                  "percent"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "当前JVM堆内存占比",
+        "pos": {
+          "h": 13,
+          "i": 16,
+          "w": 8,
+          "x": 16,
+          "y": 34
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "当前JVM堆内存占比",
+              "code": "A",
+              "dataSource": "elasticsearch_jvm",
+              "field": "mem_heap_used_percent",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "47f56c00-69dc-11eb-88ae-d506ab792835",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                },
+                {
+                  "id": "4b6676e0-69dc-11eb-88ae-d506ab792835",
+                  "logic": "and",
+                  "name": "cluster_name",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{cluster_name}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`mem_heap_used_percent`) AS `当前JVM堆内存占比`) { `host` = '#{host}' and `cluster_name` = '#{cluster_name}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      },
+      {
+        "extend": {
+          "settings": {
+            "chartType": "line",
+            "colors": [],
+            "levels": [],
+            "mark": {
+              "axis": "x",
+              "data": [],
+              "type": "area"
+            },
+            "openCompare": false,
+            "showLine": false,
+            "tableSortMetricName": "last(buffer_pools_direct_count)",
+            "units": [
+              {
+                "key": "提交的JVM堆内存大小",
+                "name": "提交的JVM堆内存大小",
+                "unit": "",
+                "units": [
+                  "digital",
+                  "b"
+                ]
+              }
+            ],
+            "xAxisShowType": "time"
+          }
+        },
+        "group": {
+          "name": null
+        },
+        "name": "提交的JVM堆内存大小",
+        "pos": {
+          "h": 13,
+          "i": 17,
+          "w": 8,
+          "x": 0,
+          "y": 47
+        },
+        "queries": [
+          {
+            "color": "",
+            "datasource": "dataflux",
+            "name": "",
+            "qtype": "dql",
+            "query": {
+              "alias": "提交的JVM堆内存大小",
+              "code": "A",
+              "dataSource": "elasticsearch_jvm",
+              "field": "mem_heap_committed_in_bytes",
+              "fieldFunc": "last",
+              "fieldType": "float",
+              "fill": null,
+              "filters": [
+                {
+                  "id": "7c4c7840-69dc-11eb-88ae-d506ab792835",
+                  "logic": "and",
+                  "name": "cluster_name",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{cluster_name}"
+                },
+                {
+                  "id": "7e6ac460-69dc-11eb-88ae-d506ab792835",
+                  "logic": "and",
+                  "name": "host",
+                  "op": "=",
+                  "type": "",
+                  "value": "#{host}"
+                }
+              ],
+              "funcList": [],
+              "groupBy": [],
+              "groupByTime": "",
+              "namespace": "metric",
+              "q": "M::`elasticsearch_jvm`:(LAST(`mem_heap_committed_in_bytes`) AS `提交的JVM堆内存大小`) { `cluster_name` = '#{cluster_name}' and `host` = '#{host}' } [::auto]",
+              "queryFuncs": [],
+              "type": "simple"
+            },
+            "type": "sequence",
+            "unit": ""
+          }
+        ],
+        "type": "sequence"
+      }
+    ],
+    "groups": [],
+    "type": "template",
+    "vars": [
+      {
+        "code": "cluster_name",
+        "datasource": "ftinfluxdb",
+        "definition": {
+          "field": "",
+          "metric": "elasticsearch_os",
+          "object": "",
+          "tag": "cluster_name",
+          "value": ""
+        },
+        "hide": 0,
+        "name": "集群名称",
+        "seq": 0,
+        "type": "TAG",
+        "valueSort": "default"
+      },
+      {
+        "code": "host",
+        "datasource": "dataflux",
+        "definition": {
+          "field": "",
+          "metric": "",
+          "object": "",
+          "tag": "",
+          "value": "show_tag_value(from=['elasticsearch_os'],keyin=['host']) {cluster_name='#{cluster_name}'}"
+        },
+        "hide": 0,
+        "name": "主机名称",
+        "seq": 1,
+        "type": "QUERY",
+        "valueSort": "default"
+      }
+    ]
+  },
+  "summary": "",
+  "tags": [],
+  "thumbnail": "",
+  "title": "iZbp16nw8yjm7dc26n8uilZ"
+}

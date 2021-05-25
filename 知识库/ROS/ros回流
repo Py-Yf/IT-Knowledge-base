@@ -1,0 +1,7 @@
+:global ipaddr [/ip address get [/ip address find interface=pppoe-out1] address]
+:set ipaddr [:pick $ipaddr 0 ([len $ipaddr] -3)]
+:global oldip [/ip firewall nat get [/ip firewall nat find comment="EDDDD6553"] dst-address]
+:if ($ipaddr != $oldip) do={
+:log info [/ip firewall nat set [/ip firewall nat find comment="EDDDD6553"] dst-address=$ipaddr]
+:log info "dst-address update ok"; 
+}

@@ -1,0 +1,73 @@
+chia
+
+单个Plot大小（GB）（plot_size）
+101
+
+K32
+
+全网算力单位（network_space_unit）
+Eib 1048576
+Pib 1024
+
+
+Plot各Harvester分布（total_plots）
+harvester日志
+Total 19 plots
+
+每日期望收益(ge)
+9216/max(network_space)/$network_space_unit/1024*$plot_size*sum(total_plots)
+
+plot_size = 101.32GB
+
+挖到的XCH
+max(xch_count)
+farmer日志
+
+爆块预计时间 
+24/(9216/max(network_space)/$network_space_unit/1024*$plot_size*sum(total_plots))*2
+
+个人算力(Tib)
+sum(total_plots) * $plot_size / 1024
+
+全网算力
+max（network_space）12.063 EiB
+farmer日志
+
+Farm高度 max(last_farm_height) 
+farmer日志
+
+各Harvester验证挑战数量(5分钟)
+(rate(eligible_plots[5m])*300)/(rate(number_of_challenges[5m])*300)*100
+
+各Harvester爆块统计
+proofs_found
+
+查询挑战数量(5分钟平均)
+
+初筛通过率
+	sum(eligible_plots) / sum(number_of_challenges) * 100
+
+初筛验证成功率
+	sum(proofs_found) / sum(eligible_plots) * 100
+总爆块率
+	sum(proofs_found) / sum(number_of_challenges)
+挑战验证累计 
+	-已查询挑战
+	harvester日志
+	sum(number_of_challenges)
+	-通过初筛
+	harvester日志
+	sum(eligible_plots)
+	-爆块
+	harvester日志
+	sum(proofs_found)
+
+查询挑战数量(5分钟平均)
+rate(number_of_challenges[5m])*300
+
+挑战查询时间
+平均查询时间
+histogram_quantile(0.50, sum(rate(check_duration_bucket[5m])) by (le))
+P95 查询时间
+histogram_quantile(0.95, sum(rate(check_duration_bucket[5m])) by (le))
+

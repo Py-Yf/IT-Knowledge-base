@@ -1,5 +1,0 @@
-#!/bin/sh
-
-flood -h 10.10.10.2 -p 3000 1>/volume1/homes/pacher/log/flood.log 2>/volume1/homes/pacher/log/flooderror.log &
-
-. /opt/etc/init.d/rc.func
